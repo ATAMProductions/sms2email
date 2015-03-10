@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :users
 
-  root 'users#index'
+  root 'application#ban'
 
+  post 'emailin', :to => 'messages#emailin'
 end
