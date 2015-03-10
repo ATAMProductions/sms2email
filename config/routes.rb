@@ -5,5 +5,5 @@ Rails.application.routes.draw do
 
   root 'application#ban'
 
-  post 'emailin', :to => 'messages#emailin'
+  match 'emailin', :to => 'messages#emailin', via: [:get, :post]
 end
