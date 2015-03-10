@@ -17,4 +17,5 @@ class UserMailer < ApplicationMailer
     @msg = msg 
     
     mail to: user.email, subject: 'Message test'
+  end
 end
