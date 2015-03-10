@@ -66,7 +66,7 @@ class MessagesController < ApplicationController
   def emailin
     @user = User.find(1)
     msg = params['mandrill_events']
-    pp msg
+
     UserMailer.msg(@user, msg).deliver
     #do some redick email stuff
     #sms out    sms_create(email_reply.body.decoded, to_gorp)
