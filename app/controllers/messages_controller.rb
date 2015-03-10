@@ -68,7 +68,7 @@ class MessagesController < ApplicationController
     @user = User.find(1)
     content = JSON.parse params['mandrill_events']
 
-    UserMailer.msg(@user, content).deliver
+    UserMailer.msg(@user, content.msg.txt).deliver
     #do some redick email stuff
     #sms out    sms_create(email_reply.body.decoded, to_gorp)
 
