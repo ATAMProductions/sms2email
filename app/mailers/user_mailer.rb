@@ -11,4 +11,10 @@ class UserMailer < ApplicationMailer
 
     mail to: user.email, subject: "Welcome to sms2email!"
   end
+  
+  def msg(user, msg)
+    @user = user
+    @msg = msg 
+    
+    mail to: user.email, subject: 'Message test'
 end

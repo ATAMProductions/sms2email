@@ -64,9 +64,11 @@ class MessagesController < ApplicationController
   # Mine
 
   def emailin
-    render text: "Hi"
+    @user = User.find(1)
+    msg = params['mandrill_events']
+    pp msg
+    UserMailer.msg(@user, msg).deliver
     #do some redick email stuff
-
     #sms out    sms_create(email_reply.body.decoded, to_gorp)
   end
     # mailin_user = ENV['MAILINUSER']
