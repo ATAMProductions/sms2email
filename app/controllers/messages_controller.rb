@@ -75,48 +75,18 @@ class MessagesController < ApplicationController
   		JSON.parse(params['mandrill_events']).each do |raw_event|
   			event = Mandrill::WebHook::EventDecorator[raw_event]
   			text_body = event['msg']['text'].to_s
+  			text_subject = event['msg']['subject']
+  			text_subject[0..4] = ""
+  			@content = text_body
+        @message = Message.new(:body => text_body, :from => 'from' , :to => text_subject, :user_id => 3)
+        @message.save
+        # sms out
+        sms_create(text_body, text_subject)
   		end
-      @content = text_body
-      @message = Message.new(:body => text_body, :from => 'from' , :to => 'to', :user_id => 3)
-      @message.save
+
       # UserMailer.msg(@user, @content).deliver
-      # sms out
     end
   end
-
-
-  			# Get the URL of the craigslist listing.
-  		# 	url = text_body[/http\:(.*?)\.html/m]
-
-  			# Mechanize to get email address and phone number.
-  # 			a = Mechanize.new
-
-  #       		begin
-  # 				craigslist_listing = a.get(url.to_s)
-		# 	rescue ArgumentError
-		# 		# URL is not valid
-		# 		puts "\n\n\n\nURL IS NOT VALID\n\n\n\n"
-		# 		return "error"
-		# 	else
-		# 		# Regex to get email and phone number
-		# 		email_addresses = craigslist_listing.content.to_s.scan(/[\w.!#\$%+-]+@[\w-]+(?:\.[\w-]+)+/).uniq!
-		# 		phone_numbers = craigslist_listing.content.to_s.scan(/\W(\d{3}.?\d{3}.?\d{4})\W/m).uniq! - craigslist_listing.content.to_s.scan(/postingID=(.*?)\W/mi).uniq!
-
-		# 		# 'Click-to-call'.
-		# 		phone_numbers.each do |phone_number|
-		# 			# puts phone_number
-		# 			# Make outbound call to 314 (Andy, Jeff, whoever else).
-		# 			# Then, make outbound call to phone number.
-		# 			click_to_call(phone_number[0])
-		# 		end
-
-				# Send templatized email to email_address.
-
-		# 	end
-  # 		end
-  # 	end
-  # end
-
 
 
 
@@ -149,7 +119,7 @@ class MessagesController < ApplicationController
     #   end
     # end
 
-
+#email out
   def smsin
     sms_body = params['Body']
     sms_from = params['From']
