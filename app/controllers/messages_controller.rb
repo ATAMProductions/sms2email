@@ -101,11 +101,12 @@ class MessagesController < ApplicationController
     @user = User.find(3)
     sms_body = params['Body']
     sms_from = params['From']
-    UserMailer.msg(@user, sms_body, sms_from).deliver
+    sms_city = params['FromCity']
+    UserMailer.msg(@user, sms_body + "From: "+ sms_city, sms_from).deliver
     if sms_body.to_s.length < 1
       render text: "No SMS."
     else
-      render text: "The sms arrived. #{sms_body}"
+      render text: "The sms arrived. #{sms_body} From #{sms_city}"
     end
   end
 
