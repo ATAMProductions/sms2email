@@ -7,4 +7,5 @@ Rails.application.routes.draw do
 
   match 'emailin', :to => 'messages#emailin', via: [:get, :post]
   match 'smsin', :to => 'messages#smsin', via: [:get, :post]
+  get 'destroy_all', :to => 'messages#destroy_all'
 end

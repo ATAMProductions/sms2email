@@ -61,7 +61,12 @@ class MessagesController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  
+  def destroy_all
+    @messages = Message.all
+    @messages.delete_all 
+    redirect_to messages_url, notice: 'Messages were booted out of the DB successfully. Gone. Destroyed.'
+  end
   # Mine
   # POST /emailin
   def emailin
@@ -102,7 +107,7 @@ class MessagesController < ApplicationController
     sms_body = params['Body']
     sms_from = params['From']
     sms_city = params['FromCity']
-    UserMailer.msg(@user, sms_body + "From: "+ sms_city, sms_from).deliver
+    UserMailer.msg(@user, sms_body + " From: "+ sms_city, sms_from).deliver
     if sms_body.to_s.length < 1
       render text: "No SMS."
     else
