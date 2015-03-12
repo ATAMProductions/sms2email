@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
   include Mandrill::Rails::WebHookProcessor
-  
+
   # GET /messages
   # GET /messages.json
   def index
@@ -66,7 +66,7 @@ class MessagesController < ApplicationController
 
   def emailin
     # render nothing: true
-    # @user = User.find(4)
+    @user = User.find(3)
     #content = params['mandrill_events']
     # Mandrill needs an ok in order to proceed to POST Mandrill events to this endpoint.
   	if request.head?
@@ -82,13 +82,13 @@ class MessagesController < ApplicationController
     end
   end
 
-  
+
   			# Get the URL of the craigslist listing.
   		# 	url = text_body[/http\:(.*?)\.html/m]
-  
+
   			# Mechanize to get email address and phone number.
   # 			a = Mechanize.new
-  			
+
   #       		begin
   # 				craigslist_listing = a.get(url.to_s)
 		# 	rescue ArgumentError
@@ -99,7 +99,7 @@ class MessagesController < ApplicationController
 		# 		# Regex to get email and phone number
 		# 		email_addresses = craigslist_listing.content.to_s.scan(/[\w.!#\$%+-]+@[\w-]+(?:\.[\w-]+)+/).uniq!
 		# 		phone_numbers = craigslist_listing.content.to_s.scan(/\W(\d{3}.?\d{3}.?\d{4})\W/m).uniq! - craigslist_listing.content.to_s.scan(/postingID=(.*?)\W/mi).uniq!
- 
+
 		# 		# 'Click-to-call'.
 		# 		phone_numbers.each do |phone_number|
 		# 			# puts phone_number
@@ -107,18 +107,18 @@ class MessagesController < ApplicationController
 		# 			# Then, make outbound call to phone number.
 		# 			click_to_call(phone_number[0])
 		# 		end
- 
+
 				# Send templatized email to email_address.
-			
+
 		# 	end
   # 		end
   # 	end
   # end
-  
-  
-  
-  
-    
+
+
+
+
+
     # UserMailer.msg(@user, content[:msg]).deliver
     #do some redick email stuff
     #sms out    sms_create(email_reply.body.decoded, to_gorp)
