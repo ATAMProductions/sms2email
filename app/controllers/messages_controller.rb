@@ -1,4 +1,5 @@
 class MessagesController < ApplicationController
+  include Mandrill::Rails::WebHookProcessor
   before_action :set_message, only: [:show, :edit, :update, :destroy]
 
   # GET /messages
@@ -65,72 +66,36 @@ class MessagesController < ApplicationController
 
   def emailin
     render nothing: true
-    @user = User.find(4)
-    content = params['mandrill_events']
-
-
-# Mandrill needs an ok in order to proceed to POST Mandrill events to this endpoint.
+    @user = User.find(3)
+    # Mandrill needs an ok in order to proceed to POST Mandrill events to this endpoint.
   	if request.head?
   		head :ok
-  	else
-  		# When receive new IFTTT email, use Mechanize to go to the URL of the listing.
-  		# Then get two things:
-  		# - anything that resembles a phone number
-  		# - a response email address
-  		# Afterwards, dial order for all roommates and connect w the broker
-  		# Then send a templatized email.
-  
-  		if params['mandrill_events']
-  			text_body = ''
-  			JSON.parse(params['mandrill_events']).each do |raw_event|
-  				event = Mandrill::WebHook::EventDecorator[raw_event]
-  				text_body = event['msg']['text'].to_s
-  			end
-  
-  			# Get the URL of the craigslist listing.
-  			url = text_body[/http\:(.*?)\.html/m]
-  
-  			# Mechanize to get email address and phone number.
-  			a = Mechanize.new
-  			
-        		begin
-  				craigslist_listing = a.get(url.to_s)
-			rescue ArgumentError
-				# URL is not valid
-				puts "\n\n\n\nURL IS NOT VALID\n\n\n\n"
-				return "error"
-			else
-				# Regex to get email and phone number
-				email_addresses = craigslist_listing.content.to_s.scan(/[\w.!#\$%+-]+@[\w-]+(?:\.[\w-]+)+/).uniq!
-				phone_numbers = craigslist_listing.content.to_s.scan(/\W(\d{3}.?\d{3}.?\d{4})\W/m).uniq! - craigslist_listing.content.to_s.scan(/postingID=(.*?)\W/mi).uniq!
- 
-				# 'Click-to-call'.
-				phone_numbers.each do |phone_number|
-					# puts phone_number
-					# Make outbound call to 314 (Andy, Jeff, whoever else).
-					# Then, make outbound call to phone number.
-					click_to_call(phone_number[0])
-				end
- 
-				# Send templatized email to email_address.
-				email_addresses.each do |email_address|
-					Mailer.email_apartment_listing(email_address, 'Apartment listing').deliver
-				end
-			end
+  	else params['mandrill_events']
+  		text_body = ''
+  		JSON.parse(params['mandrill_events']).each do |raw_event|
+  			event = Mandrill::WebHook::EventDecorator[raw_event]
+  			text_body = event['msg']['text'].to_s
+  			text_subject = event['msg']['subject']
+  			text_subject[0..4] = ""
+  			@content = text_body
+        @message = Message.new(:body => text_body, :from => 'from' , :to => text_subject, :user_id => 3)
+        @message.save
+        # sms out
+        sms_create(text_body, text_subject)
   		end
-  		render 'app/views/inbox/sfapartments.html', :formats => [:html]
-  	end
+
+      # UserMailer.msg(@user, @content).deliver
+    end
   end
-  
-  
-  
-  
-    
-    UserMailer.msg(@user, content[:msg]).deliver
+
+
+
+
+    # UserMailer.msg(@user, content[:msg]).deliver
     #do some redick email stuff
     #sms out    sms_create(email_reply.body.decoded, to_gorp)
 
-  end
+  # end
     # mailin_user = ENV['MAILINUSER']
     #   mailin_pass = ENV['MAILINPASS']
 
@@ -154,7 +119,7 @@ class MessagesController < ApplicationController
     #   end
     # end
 
-
+#email out
   def smsin
     sms_body = params['Body']
     sms_from = params['From']
