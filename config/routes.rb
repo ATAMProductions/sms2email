@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   root 'application#ban'
 
   match 'emailin', :to => 'messages#emailin', via: [:get, :post]
+  match 'smsin', :to => 'messages#smsin', via: [:get, :post]
 end
