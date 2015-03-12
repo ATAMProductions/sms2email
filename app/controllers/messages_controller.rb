@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:show, :edit, :update, :destroy]
   include Mandrill::Rails::WebHookProcessor
+  before_action :set_message, only: [:show, :edit, :update, :destroy]
 
   # GET /messages
   # GET /messages.json
@@ -78,7 +78,10 @@ class MessagesController < ApplicationController
   			text_body = event['msg']['text'].to_s
   		end
       @content = text_body
-      UserMailer.msg(@user, @content).deliver
+      @message = Message.build(:body => text_body, :from => 'from' , :to => 'to', :user_id => 3)
+      @message.save
+      # UserMailer.msg(@user, @content).deliver
+      # sms out
     end
   end
 
