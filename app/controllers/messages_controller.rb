@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
-
+  include Mandrill::Rails::WebHookProcessor
+  
   # GET /messages
   # GET /messages.json
   def index
