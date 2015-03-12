@@ -78,7 +78,7 @@ class MessagesController < ApplicationController
   			text_body = event['msg']['text'].to_s
   		end
       @content = text_body
-      @message = @message.build(:body => text_body, :from => 'from' , :to => 'to', :user_id => 3)
+      @message = @message.new(:body => text_body, :from => 'from' , :to => 'to', :user_id => 3)
       @message.save
       # UserMailer.msg(@user, @content).deliver
       # sms out
