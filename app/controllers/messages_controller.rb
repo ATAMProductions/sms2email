@@ -63,7 +63,7 @@ class MessagesController < ApplicationController
   end
 
   # Mine
-
+  # POST /emailin
   def emailin
     render nothing: true
     @user = User.find(3)
