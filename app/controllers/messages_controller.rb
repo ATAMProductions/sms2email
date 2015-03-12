@@ -67,7 +67,6 @@ class MessagesController < ApplicationController
   def emailin
     render nothing: true
     @user = User.find(3)
-    #content = params['mandrill_events']
     # Mandrill needs an ok in order to proceed to POST Mandrill events to this endpoint.
   	if request.head?
   		head :ok
