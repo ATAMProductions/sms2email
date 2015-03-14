@@ -10,7 +10,7 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
+ <% if current_user %>
   <tbody>
     <% @users.each do |user| %>
       <tr>
@@ -23,7 +23,7 @@
     <% end %>
   </tbody>
 </table>
-
+<% end %>
 <br>
 
 <%= link_to 'New User', new_user_path %>
