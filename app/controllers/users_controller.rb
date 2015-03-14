@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  
+  #before_filter :authorize, [:show, :index, :update, :destroy]
+  
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -28,6 +31,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        session[:user_id] = @user.id
         #send email
         UserMailer.signup(@user).deliver
         format.html { redirect_to @user, notice: 'User was successfully created.' }

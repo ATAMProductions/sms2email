@@ -1,5 +1,7 @@
 class MessagesController < ApplicationController
   include Mandrill::Rails::WebHookProcessor
+  
+  before_filter :authorize, [:show, :index, :update, :destroy]
   before_action :set_message, only: [:show, :edit, :update, :destroy]
 
   # GET /messages

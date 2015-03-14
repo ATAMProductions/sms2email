@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
   def ban
     render text: "Hello Pandas!"
   end
+  
+  def authorize
+    redirect_to login_url, alert: "No authorization" if current_user.nil?
+  end 
 
   private
   def current_user
