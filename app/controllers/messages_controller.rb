@@ -71,10 +71,11 @@ class MessagesController < ApplicationController
     redirect_to messages_url, notice: 'Messages were booted out of the DB successfully. Gone. Destroyed.'
   end
   # Mine
+  
   # POST /emailin
   def emailin
     render nothing: true
-    @user = User.find(3)
+    @user = User.find(4)
     # Mandrill needs an ok in order to proceed to POST Mandrill events to this endpoint.
   	if request.head?
   		head :ok
@@ -91,26 +92,20 @@ class MessagesController < ApplicationController
         # sms out
         sms_create(text_body, text_subject)
   		end
-
+      #for testing
       # UserMailer.msg(@user, @content).deliver
     end
   end
 
-
-
-
-    # UserMailer.msg(@user, content[:msg]).deliver
-    #do some redick email stuff
-    #sms out    sms_create(email_reply.body.decoded, to_gorp)
-
-
-#email out
+  #email out
   def smsin
-    @user = User.find(3)
+    user = User.find(4)
+    em = user.email
     sms_body = params['Body']
     sms_from = params['From']
     sms_city = params['FromCity']
-    UserMailer.msg(@user, sms_body + " From: "+ sms_city, sms_from).deliver
+    Resque.enqueue(MailJob, em, sms_body + " From: "+ sms_city, sms_from )
+    #UserMailer.msg(@user, sms_body + " From: "+ sms_city, sms_from).deliver
     if sms_body.to_s.length < 1
       render text: "No SMS."
     else

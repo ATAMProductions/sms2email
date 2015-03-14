@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  default from: "massaad@gmail.com"
+  default from: "mailer@zzv.ca"
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -12,10 +12,10 @@ class UserMailer < ApplicationMailer
     mail to: user.email, subject: "Welcome to sms2email!"
   end
   
-  def msg(user, msg, subject)
-    @user = user
+  def msg(em, msg, subject)
+    @email = em
     @msg = msg 
     
-    mail to: user.email, subject: subject
+    mail to: em, subject: subject
   end
 end

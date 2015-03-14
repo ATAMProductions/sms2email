@@ -26,7 +26,8 @@ gem 'twilio-ruby'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-
+gem 'resque', "~> 1.22.0", :require => "resque/server"
+gem 'activejob'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
