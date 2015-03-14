@@ -191,6 +191,7 @@ DEPENDENCIES
   puma
   rails (= 4.2.0)
   rails_12factor
+  redis
   resque (~> 1.22.0)
   sass-rails (~> 5.0)
   spring
