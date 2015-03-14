@@ -29,6 +29,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'redis'
 gem 'resque', "~> 1.22.0", :require => "resque/server"
 gem 'activejob'
+gem 'newrelic_rpm'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
