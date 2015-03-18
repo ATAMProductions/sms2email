@@ -101,9 +101,9 @@ class MessagesController < ApplicationController
   def smsin
     user = User.find(4)
     em = user.email
-    sms_body = params['Body']
-    sms_from = params['From']
-    sms_city = params['FromCity']
+    sms_body = params["Body"]
+    sms_from = params["From"]
+    sms_city = params["FromCity"]
     Resque.enqueue(MailJob, em, sms_body + " From: "+ sms_city, sms_from )
     #UserMailer.msg(@user, sms_body + " From: "+ sms_city, sms_from).deliver
     if sms_body.to_s.length < 1
@@ -123,7 +123,11 @@ class MessagesController < ApplicationController
     def message_params
       params.require(:message).permit(:body, :from, :to)
     end
-
+#wip    
+    # def twilio_params
+    #   params.require(:message).permit(:Body, :From, :FromCity)
+    # end
+    
     def sms_create(body, to)
       from = ENV['TWILIOFROM']
       account_sid = ENV['TSID']

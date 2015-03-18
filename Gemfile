@@ -30,11 +30,16 @@ gem 'redis'
 gem 'resque', "~> 1.22.0", :require => "resque/server"
 gem 'activejob'
 gem 'newrelic_rpm'
+
+gem 'rubocop', require: false
 # Use Unicorn as the app server
 # gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+group :development do
+  gem 'brakeman', :require => false
+end
 
 group :production do
   gem 'pg'
