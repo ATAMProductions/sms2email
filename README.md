@@ -5,19 +5,23 @@ This is my ugly code to turn Twilio sms into emails. It also enables me to turn 
 
 Consider installing this to have it set up like I did:
 
-* Ruby version: ruby '2.1.5'
+#Ruby version: 
 
-* System dependencies: 
+ruby '2.1.5'
+
+# App dependencies: 
  
--Twilio
+- Twilio
 
--Mandrill for email
+- Mandrill for email
 
--redis
+- redis
 
--Heroku for 1 web server and 1 worker server 
+- Heroku for 1 web server and 1 worker server 
 
-* How to run the test suite: lol
+# How to run the test suite: 
+
+lol
  
 One neat thing is that this is running on two heroku dynos for free (web + worker). 
 The repo is pushed twice to two Heroku apps, one has a dyno worker, the other app has only a dyno web server.
