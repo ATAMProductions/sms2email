@@ -1,31 +1,17 @@
-== README
+# SMS Gateway (sms2email)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is my ugly code to turn Twilio sms into emails. It also enables me to turn a reply back to SMS to the original sender. Its an sms2email gateway!
 
-Things you may want to cover:
+Consider this to have set up:
 
-* Ruby version
+* Ruby version: ruby '2.1.5'
 
-* System dependencies
+* System dependencies: redis, 1 web server, 1 worker server 
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* How to run the test suite: lol
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+
 
 # Load Test
 ```
@@ -34,8 +20,13 @@ Please feel free to use a different markup language if you do not plan to run
 
  git remote -v
 heroku  https://git.heroku.com/rygflbmadkishojc.git (fetch)
+
 heroku  https://git.heroku.com/rygflbmadkishojc.git (push)
+
 origin  git@bitbucket.org:massaad/new-sms2email.git (fetch)
+
 origin  git@bitbucket.org:massaad/new-sms2email.git (push)
+
 worker  https://git.heroku.com/rygflbmadkishojc-worker.git (fetch)
+
 worker  https://git.heroku.com/rygflbmadkishojc-worker.git (push)
