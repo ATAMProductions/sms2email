@@ -22,9 +22,11 @@ ruby '2.1.5'
 # How to run the test suite: 
 
 lol
+
+=====
  
-One neat thing is that this is running on two heroku dynos for free (web + worker). 
-The repo is pushed twice to two Heroku apps, one has a dyno worker, the other app has only a dyno web server.
+One neat thing is that this app is running for me on two Heroku dynos for free (web + worker). 
+The repo is pushed to two Heroku apps, one has 1x dyno worker scaled, the other app has only 1x dyno web server.
 
 Simple, free. 
 Thanks Heroku!
