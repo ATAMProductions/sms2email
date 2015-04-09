@@ -1,4 +1,5 @@
 # SMS Gateway (sms2email)
+[ ![Codeship Status for ATAMProductions/sms2email](https://codeship.com/projects/e3a7e130-c07e-0132-2aed-266352fa3a31/status?branch=master)](https://codeship.com/projects/73270)
 
 This is my ugly code to turn Twilio sms into emails. It also enables me to turn a reply back to SMS to the original sender. Its an sms2email gateway!
 
