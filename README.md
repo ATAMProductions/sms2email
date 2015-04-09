@@ -10,8 +10,11 @@ Consider installing this to have it set up like I did:
 * System dependencies: 
  
 -Twilio
+
 -Mandrill for email
+
 -redis
+
 -Heroku for 1 web server and 1 worker server 
 
 * How to run the test suite: lol
